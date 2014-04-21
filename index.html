@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Rotate Test Page</title>
+	<meta name="author" content="Jim Eastburn">
+	
+	<script >
+		var howOften = 5; //number often in seconds to rotate
+		var current = 1;
+		
+		var items = new Array();
+		for (var i = 1; i < 10; i++){
+			items[i]="<a href='link.htm'><img  src='http://www.thinkgeekspeak.com/images/drill_400-01-0" + i + ".jpg' height='300' width='300'/></a>"; 
+		}
+		for (var j = 10; j < 37; j++){
+			items[j]="<a href='link.htm'><img  src='http://www.thinkgeekspeak.com/images/drill_400-01-" + j + ".jpg' height='300' width='300'/></a>"; 
+		}
+		    
+		function rotater() {
+		    document.getElementById("placeholderdiv").innerHTML = items[current];
+
+		    if(current===items.length-1){
+		    	current = 1;
+		    }
+		    else{
+		    	current++;
+		    }
+		    setTimeout("rotater()",howOften*10);
+		}
+		
+		window.onload=rotater;		
+</script>
+		
+</head>
+<body>
+	<div id="placeholderdiv"></div>
+	
+</body>
+</html>
