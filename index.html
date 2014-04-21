@@ -12,6 +12,9 @@
 		var current = 1;
 		
 		var items = new Array();
+		var rotateRightQueue = new Array();
+		var rotateLeftQueue = new Array();
+
 		for (var i = 1; i < 10; i++){
 			items[i]="<img src='http://www.thinkgeekspeak.com/images/drill_400-01-0" + i + ".jpg' height='300' width='300'/>"; 
 		}
@@ -43,7 +46,7 @@
 		    else{
 		    	current++;
 		    }
-		    setTimeout("rotateLeft()",howOften);
+		     rotateLeftQueue.push(setTimeout("rotateLeft()",howOften));
 		}
 
 		function rotateRight() {
@@ -55,15 +58,17 @@
 		    else{
 		    	current--;
 		    }
-		    setTimeout("rotateRight()",howOften);
+		    rotateRightQueue.push(setTimeout("rotateRight()",howOften));
 		}
 		
-		window.onmousedown=increaseRotationSpeed;		
+		//window.onmousedown=increaseRotationSpeedLeft;		
 </script>
 		
 </head>
 <body>
 	<div id="placeholderdiv"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
+	<button onclick="increaseRotationSpeedLeft()">Rotate Left</button>
+	<button onclick="increaseRotationSpeedRight()">Rotate Right</button>
 	
 </body>
 </html>
