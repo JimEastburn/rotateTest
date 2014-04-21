@@ -14,10 +14,19 @@
 		var speedLeftRotation = 0;
 		var rightRotationSpeedConst = "Right rotation speed = ";
 		var leftRotationSpeedConst = "Left rotation speed = ";
+		var mouseStartXConst = "mouse start X: ";
+		var mouseStartYConst = "mouse start Y: ";
+		var mouseEndXConst = "mouse end X: ";
+		var mouseEndYConst = "mouse end Y: ";
 		
 		var items = new Array();
 		var rotateRightQueue = new Array();
 		var rotateLeftQueue = new Array();
+
+		var mouseStartX = 0;
+		var mouseStartY = 0;
+
+
 
 		for (var i = 1; i < 10; i++){
 			items[i]="<img src='http://www.thinkgeekspeak.com/images/drill_400-01-0" + i + ".jpg' height='300' width='300'/>"; 
@@ -26,12 +35,30 @@
 			items[j]="<img src='http://www.thinkgeekspeak.com/images/drill_400-01-" + j + ".jpg' height='300' width='300'/>"; 
 		}
 
-		function mousedown (){
-
+		function mousedown (e){
+			mouseStartX = e.x;
+			mouseStartY = e.y;
+			this.showMouseStartX();
+			this.showMouseStartY();
 			
 		}
 
-		function increaseRotationSpeedRight (){
+		function mouseup (e){
+			mouseEndX = e.x;
+			mouseEndY = e.y;
+			this.showMouseEndX();
+			this.showMouseEndY();
+			
+		}
+
+		function increaseLeftRotationSpeedByOne (){
+
+			this.rotateLeft();
+			speedLeftRotation++;
+			this.showLeftRotationSpeed();
+		}
+
+		function increaseRightRotationSpeedByOne (){
 
 			this.rotateRight();
 			speedRightRotation++;
@@ -53,15 +80,6 @@
 			}
 			this.showRightRotationSpeed();
 			
-		}
-
-		slowRotationSpeedLeft
-
-		function increaseRotationSpeedLeft (){
-
-			this.rotateLeft();
-			speedLeftRotation++;
-			this.showLeftRotationSpeed();
 		}
 
 		function decreaseLeftRotationSpeedByOne (){
@@ -142,27 +160,47 @@
 		function showLeftRotationSpeed(){
 			document.getElementById("leftRotationSpeed").innerHTML = leftRotationSpeedConst + speedLeftRotation;
 		}
+
+		function showMouseStartX(){
+			document.getElementById("mouseStartX").innerHTML = mouseStartXConst + mouseStartX;
+		}
+
+		function showMouseStartY(){
+			document.getElementById("mouseStartY").innerHTML = mouseStartYConst + mouseStartY;
+		}
+
+		function showMouseEndX(){
+			document.getElementById("mouseEndX").innerHTML = mouseEndXConst + mouseEndX;
+		}
+
+		function showMouseEndY(){
+			document.getElementById("mouseEndY").innerHTML = mouseEndYConst + mouseEndY;
+		}
 		
-		window.onmousedown=mousedown;		
+		window.onmousedown=mousedown;
+		window.onmouseup=mouseup;			
 </script>
 		
 </head>
 <body>
 	<div id="drill"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
-	<button onclick="increaseRotationSpeedLeft()">Rotation Left Speed +1</button>
-	<button onclick="increaseRotationSpeedRight()">Rotation Right Speed +1</button>
+	<button onclick="increaseLeftRotationSpeedByOne()">Rotation Left Speed +1</button>
+	<button onclick="increaseRightRotationSpeedByOne()">Rotation Right Speed +1</button>
 	<button onclick="stopAutoRotationLeftAndRight()">Stop Rotation</button>
 	
 	<div> 
 		<button onclick="decreaseLeftRotationSpeedByOne()">Rotation Left Speed -1</button>
 		<button onclick="decreaseRightRotationSpeedByOne()">Rotation Right Speed -1</button>
 	</div>
-	<div> 
-		<button onclick="slowRotationSpeedLeft()">Rotation Left Speed Slow Down</button>
-		<button onclick="slowRotationSpeedRight()">Rotation Right Speed Slow Down</button>
-	</div>
-	<div id="rightRotationSpeed"></div>
-	<div id="leftRotationSpeed"></div>
+	
+	<div id="rightRotationSpeed">Right rotation speed = 0</div>
+	<div id="leftRotationSpeed">Left rotation speed = 0</div>
+
+	<div id="mouseStartX">mouseStartX = 0</div>
+	<div id="mouseStartY">mouseStartY = 0</div>
+
+	<div id="mouseEndX">mouseEndX = 0</div>
+	<div id="mouseEndY">mouseEndY = 0</div>
 	<!-- show current speed -->
 
 	
