@@ -21,7 +21,17 @@
 
 		function mousedown (){
 
+			this.rotateRight();
+		}
 
+		function increaseRotationSpeedRight (){
+
+			this.rotateRight();
+		}
+
+		function increaseRotationSpeedLeft (){
+
+			this.rotateLeft();
 		}
 		    
 		function rotateLeft() {
@@ -48,7 +58,7 @@
 		    setTimeout("rotateRight()",howOften);
 		}
 		
-		window.onload=rotateRight;		
+		window.onmousedown=increaseRotationSpeed;		
 </script>
 		
 </head>
