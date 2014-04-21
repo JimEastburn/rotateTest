@@ -10,6 +10,8 @@
 	<script >
 		var howOften = 50;
 		var current = 1;
+		var speedRightRotation = 0;
+		var speedLeftRotation = 0;
 		
 		var items = new Array();
 		var rotateRightQueue = new Array();
@@ -24,21 +26,82 @@
 
 		function mousedown (){
 
-			this.rotateRight();
+			
 		}
 
 		function increaseRotationSpeedRight (){
 
 			this.rotateRight();
+			speedRightRotation++;
+		}
+
+		function decreaseRotationSpeedRight (){
+			for(var i = 0; i < rotateRightQueue.length; i++){
+				clearTimeout(rotateRightQueue[i]);
+			}
+			rotateRightQueue = new Array();
+			
+			for (var i = 0; i < speedRightRotation; i++){
+				this.rotateRight();
+			}
+
+			if (speedRightRotation > 0){
+				speedRightRotation--;
+			}
+			
 		}
 
 		function increaseRotationSpeedLeft (){
 
 			this.rotateLeft();
+			speedLeftRotation++;
 		}
-		    
+
+		function decreaseRotationSpeedLeft (){
+			
+			for(var i = 0; i < rotateLeftQueue.length; i++){
+				clearTimeout(rotateLeftQueue[i]);
+			}
+			rotateLeftQueue = new Array();
+			
+			for (var i = 0; i < speedLeftRotation; i++){
+				this.rotateLeft();
+			}
+
+			if (speedLeftRotation > 0){
+				speedLeftRotation--;
+			}
+			
+			
+		}
+
+		function stopAutoRotationLeft (){
+
+			for(var i = 0; i < rotateLeftQueue.length; i++){
+				clearTimeout(rotateLeftQueue[i]);
+			}
+			rotateLeftQueue = new Array();
+			speedLeftRotation = 0;
+			
+		}
+
+		function stopAutoRotationRight (){
+
+			for(var j = 0; j < rotateRightQueue.length; j++){
+				clearTimeout(rotateRightQueue[j]);
+			}
+			rotateRightQueue = new Array();
+			speedRightRotation = 0;
+			
+		}
+
+		function stopAutoRotationLeftAndRight (){
+			this.stopAutoRotationLeft();
+			this.stopAutoRotationRight();
+		}
+
 		function rotateLeft() {
-		    document.getElementById("placeholderdiv").innerHTML = items[current];
+		    document.getElementById("drill").innerHTML = items[current];
 
 		    if(current===items.length-1){
 		    	current = 1;
@@ -48,9 +111,10 @@
 		    }
 		     rotateLeftQueue.push(setTimeout("rotateLeft()",howOften));
 		}
+		   
 
 		function rotateRight() {
-		    document.getElementById("placeholderdiv").innerHTML = items[current];
+		    document.getElementById("drill").innerHTML = items[current];
 
 		    if(current===1){
 		    	current = 36;
@@ -61,14 +125,21 @@
 		    rotateRightQueue.push(setTimeout("rotateRight()",howOften));
 		}
 		
-		//window.onmousedown=increaseRotationSpeedLeft;		
+		window.onmousedown=mousedown;		
 </script>
 		
 </head>
 <body>
-	<div id="placeholderdiv"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
-	<button onclick="increaseRotationSpeedLeft()">Rotate Left</button>
-	<button onclick="increaseRotationSpeedRight()">Rotate Right</button>
+	<div id="drill"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
+	<button onclick="increaseRotationSpeedLeft()">Increase Rotation Left</button>
+	<button onclick="increaseRotationSpeedRight()">Increase Rotation Right</button>
+	<button onclick="stopAutoRotationLeftAndRight()">Stop Auto Rotation</button>
+	
+	<div> 
+		<button onclick="decreaseRotationSpeedLeft()">Decrease Rotation Left</button>
+		<button onclick="decreaseRotationSpeedRight()">Decrease Rotation Right</button>
+	</div>
+	
 	
 </body>
 </html>
