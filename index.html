@@ -8,18 +8,23 @@
 	<meta name="author" content="Jim Eastburn">
 	
 	<script >
-		var howOften = 5; //number often in seconds to rotate
+		var howOften = 50;
 		var current = 1;
 		
 		var items = new Array();
 		for (var i = 1; i < 10; i++){
-			items[i]="<a href='link.htm'><img  src='http://www.thinkgeekspeak.com/images/drill_400-01-0" + i + ".jpg' height='300' width='300'/></a>"; 
+			items[i]="<img src='http://www.thinkgeekspeak.com/images/drill_400-01-0" + i + ".jpg' height='300' width='300'/>"; 
 		}
 		for (var j = 10; j < 37; j++){
-			items[j]="<a href='link.htm'><img  src='http://www.thinkgeekspeak.com/images/drill_400-01-" + j + ".jpg' height='300' width='300'/></a>"; 
+			items[j]="<img src='http://www.thinkgeekspeak.com/images/drill_400-01-" + j + ".jpg' height='300' width='300'/>"; 
+		}
+
+		function mousedown (){
+
+
 		}
 		    
-		function rotater() {
+		function rotateLeft() {
 		    document.getElementById("placeholderdiv").innerHTML = items[current];
 
 		    if(current===items.length-1){
@@ -28,15 +33,27 @@
 		    else{
 		    	current++;
 		    }
-		    setTimeout("rotater()",howOften*10);
+		    setTimeout("rotateLeft()",howOften);
+		}
+
+		function rotateRight() {
+		    document.getElementById("placeholderdiv").innerHTML = items[current];
+
+		    if(current===1){
+		    	current = 36;
+		    }
+		    else{
+		    	current--;
+		    }
+		    setTimeout("rotateRight()",howOften);
 		}
 		
-		window.onload=rotater;		
+		window.onload=rotateRight;		
 </script>
 		
 </head>
 <body>
-	<div id="placeholderdiv"></div>
+	<div id="placeholderdiv"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
 	
 </body>
 </html>
