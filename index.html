@@ -165,25 +165,25 @@
 			document.getElementById("mouseEndY").innerHTML = mouseEndYConst + mouseEndY;
 		}
 
-		// function makeVelocityCalculator(e_init, callback) {
-		//     var x = e_init.clientX,
-		//         y = e_init.clientY,
-		//         t = Date.now();
-		// 	    return function(e) {
-		// 	        var new_x = e.clientX,
-		// 	            new_y = e.clientY,
-		// 	            new_t = Date.now();
-		// 	        var x_dist = new_x - x,
-		// 	            y_dist = new_y - y,
-		// 	            interval = new_t - t;
-		// 	        // update values:
-		// 	        x = new_x;
-		// 	        y = new_y;
-		// 	        t = new_t;
-		// 	        var velocity = Math.sqrt(x_dist*x_dist+y_dist*y_dist)/interval;
-		// 	        callback(velocity);
-		// 	    };
-		// }
+		function getMouseVelocity(e_init, e) {
+        var x = e_init.clientX, new_x,new_y,new_t,
+            x_dist, y_dist, interval,velocity,
+            y = e_init.clientY,
+            t;
+		    if (e === false) {return 0;}
+		    t = e.time;
+	        new_x = e.clientX;
+	        new_y = e.clientY;
+	        new_t = Date.now();
+	        x_dist = new_x - x;
+            y_dist = new_y - y;
+            interval = new_t - t;
+            // update values:
+            x = new_x;
+            y = new_y;
+            velocity = Math.sqrt(x_dist*x_dist+y_dist*y_dist)/interval;
+            return velocity;
+	    }
 
 		function getElementDrill(){
 			drill = document.getElementById("drill");
@@ -194,13 +194,13 @@
 				mouseStartY = e.y;
 				self.showMouseStartX();
 				self.showMouseStartY();
-
-				// var log = makeVelocityCalculator(e, function(v) {
-		  //           drill.text(v+" pixel/ms");
-		  //       });
-
+					var previousEvent = false;
 				    document.onmousemove = function(e){
-				    	//log();
+				    	e.time = Date.now();
+					    var velocity;
+					    velocity = self.getMouseVelocity( e, previousEvent);
+					    previousEvent = e;
+					    document.getElementById("velocity").innerHTML="velocity:"+velocity;
 				        mouseEndX = e.x;
 						mouseEndY = e.y;
 						self.showMouseEndX();
@@ -217,10 +217,6 @@
 				    }
 			}
 		}
-
-		
-
-		
 	
 		window.onload = getElementDrill;
 		//window.onmousedown=mousedown;
@@ -229,10 +225,12 @@
 		
 </head>
 <body>
+	<div id="velocity"></div>
 	<div id="drill"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
 	<button onclick="increaseLeftRotationSpeedByOne()">Rotation Left Speed +1</button>
 	<button onclick="increaseRightRotationSpeedByOne()">Rotation Right Speed +1</button>
 	<button onclick="stopAutoRotationLeftAndRight()">Stop Rotation</button>
+	<button onclick="stopAutoRotationEase()">Stop Rotation Ease</button>
 	
 	<div> 
 		<button onclick="decreaseLeftRotationSpeedByOne()">Rotation Left Speed -1</button>
