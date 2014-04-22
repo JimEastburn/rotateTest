@@ -108,8 +108,31 @@
 		}
 
 		function stopAutoRotationEaseRight (){
-			for (var i = 0; i< speedRightRotation; i++){
-				setTimeout("decreaseRightRotationSpeedByOne()",1000*i);
+			var	easeConstants = [];
+			
+			if(speedRightRotation === 1){
+				easeConstants = [1000];
+			}
+			if(speedRightRotation === 2){
+				easeConstants = [1000,2000];
+			}
+			if(speedRightRotation === 3){
+				easeConstants = [1000,2000,3000];
+			}
+			if(speedRightRotation === 4){
+				easeConstants = [1000,2000,3000,4000];
+			}
+			if(speedRightRotation === 5){
+				easeConstants = [1000,2000,3000,4000,5000];
+			}
+			if(speedRightRotation === 6){
+				easeConstants = [1000,2000,3000,4000,5000,6000];
+			}
+			if(speedRightRotation === 7){
+				easeConstants = [500,1000,1500,2000,2200,2600,3000];
+			}
+			for (var i = 0; i< easeConstants.length; i++){
+				setTimeout("decreaseRightRotationSpeedByOne()",easeConstants[i]);
 			}
 		}
 
@@ -137,6 +160,18 @@
 		    }
 		     rotateLeftQueue.push(setTimeout("rotateLeft()",howOften));
 		}
+
+		function rotateLeftOne() {
+		    document.getElementById("drill").innerHTML = items[current];
+		    
+		    if(current===items.length-1){
+		    	current = 1;
+		    }
+		    else{
+		    	current++;
+		    }
+		    document.getElementById("currentImageNumber").innerHTML = "current image nubmer = " + current;
+		}
 		   
 
 		function rotateRight() {
@@ -151,6 +186,21 @@
 		    }
 		    rotateRightQueue.push(setTimeout("rotateRight()",howOften));
 		}
+
+		function rotateRightOne() {
+		    document.getElementById("drill").innerHTML = items[current];
+		    this.showRightRotationSpeed();
+
+		    if(current===1){
+		    	current = 36;
+		    }
+		    else{
+		    	current--;
+		    }
+		    document.getElementById("currentImageNumber").innerHTML = "current image nubmer = " + current;
+		}
+
+		
 
 		function showRightRotationSpeed(){
 			document.getElementById("rightRotationSpeed").innerHTML = rightRotationSpeedConst + speedRightRotation;
@@ -211,7 +261,7 @@
 					    var velocity;
 					    velocity = self.getMouseVelocity( e, previousEvent);
 					    previousEvent = e;
-					    document.getElementById("velocity").innerHTML="mouse velocity:"+velocity;
+					    document.getElementById("velocity").innerHTML="mouse velocity: "+velocity;
 				        mouseEndX = e.x;
 						mouseEndY = e.y;
 						self.showMouseEndX();
@@ -236,7 +286,7 @@
 		
 </head>
 <body>
-	<div id="velocity"></div>
+	<div id="velocity">mouse velocity: </div>
 	<div id="drill"><img src='http://www.thinkgeekspeak.com/images/drill_400-01-01.jpg' height='300' width='300'/> </div>
 	<button onclick="increaseLeftRotationSpeedByOne()">Rotation Left Speed +1</button>
 	<button onclick="increaseRightRotationSpeedByOne()">Rotation Right Speed +1</button>
@@ -257,7 +307,10 @@
 
 	<div id="mouseEndX">mouseEndX = 0</div>
 	<div id="mouseEndY">mouseEndY = 0</div>
-	<!-- show current speed -->
+	
+	<button onclick="rotateLeftOne()">Rotate Left One</button>
+	<button onclick="rotateRightOne()">Rotate Right One</button>
+	<div id="currentImageNumber">current image nubmer = 1</div>
 
 	
 </body>
