@@ -40,14 +40,12 @@
 		
 
 		function increaseLeftRotationSpeedByOne (){
-
 			this.rotateLeft();
 			speedLeftRotation++;
 			this.showLeftRotationSpeed();
 		}
 
 		function increaseRightRotationSpeedByOne (){
-
 			this.rotateRight();
 			speedRightRotation++;
 			this.showRightRotationSpeed();
@@ -108,6 +106,19 @@
 			this.showRightRotationSpeed();
 			
 		}
+
+		function stopAutoRotationEaseRight (){
+			for (var i = 0; i< speedRightRotation; i++){
+				setTimeout("decreaseRightRotationSpeedByOne()",1000*i);
+			}
+		}
+
+		function stopAutoRotationEaseLeft (){
+			for (var i = 0; i< speedLeftRotation; i++){
+				setTimeout("decreaseLeftRotationSpeedByOne()",1000*i);
+			}
+		}
+
 
 		function stopAutoRotationLeftAndRight (){
 			this.stopAutoRotationLeft();
@@ -200,7 +211,7 @@
 					    var velocity;
 					    velocity = self.getMouseVelocity( e, previousEvent);
 					    previousEvent = e;
-					    document.getElementById("velocity").innerHTML="velocity:"+velocity;
+					    document.getElementById("velocity").innerHTML="mouse velocity:"+velocity;
 				        mouseEndX = e.x;
 						mouseEndY = e.y;
 						self.showMouseEndX();
@@ -230,7 +241,8 @@
 	<button onclick="increaseLeftRotationSpeedByOne()">Rotation Left Speed +1</button>
 	<button onclick="increaseRightRotationSpeedByOne()">Rotation Right Speed +1</button>
 	<button onclick="stopAutoRotationLeftAndRight()">Stop Rotation</button>
-	<button onclick="stopAutoRotationEase()">Stop Rotation Ease</button>
+	<button onclick="stopAutoRotationEaseRight()">Stop Rotation Right Ease</button>
+	<button onclick="stopAutoRotationEaseLeft()">Stop Rotation Left Ease</button>
 	
 	<div> 
 		<button onclick="decreaseLeftRotationSpeedByOne()">Rotation Left Speed -1</button>
