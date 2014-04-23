@@ -7,7 +7,7 @@
 	<title>Rotate Test Page</title>
 	<meta name="author" content="Jim Eastburn">
 	
-	<script >
+	<script language="JavaScript">
 		var howOften = 50;
 		var slowDown = 100;
 		var current = 1;
@@ -69,7 +69,7 @@
 			if (speedRightRotation > 0){
 				speedRightRotation--;
 			}
-			this.showRightRotationSpeed();
+			showRightRotationSpeed();
 			
 		}
 
@@ -108,7 +108,7 @@
 			}
 			rotateRightQueue = new Array();
 			speedRightRotation = 0;
-			this.showRightRotationSpeed();
+			showRightRotationSpeed();
 			
 		}
 
@@ -156,8 +156,8 @@
 
 
 		function stopAutoRotationLeftAndRight (){
-			this.stopAutoRotationLeft();
-			this.stopAutoRotationRight();
+			stopAutoRotationLeft();
+			stopAutoRotationRight();
 		}
 
 		function rotateLeft() {
@@ -187,7 +187,7 @@
 
 		function rotateRightSlow() {
 		    document.getElementById("drill").innerHTML = items[current];
-		    this.showRightRotationSpeed();
+		    showRightRotationSpeed();
 
 		    if(current===1){
 		    	current = 36;
@@ -213,7 +213,7 @@
 
 		function rotateRight() {
 		    document.getElementById("drill").innerHTML = items[current];
-		    this.showRightRotationSpeed();
+		    showRightRotationSpeed();
 
 		    if(current===1){
 		    	current = 36;
@@ -228,7 +228,7 @@
 
 		function rotateRightOne() {
 		    document.getElementById("drill").innerHTML = items[current];
-		    this.showRightRotationSpeed();
+		    showRightRotationSpeed();
 
 		    if(current===1){
 		    	current = 36;
