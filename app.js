@@ -258,25 +258,22 @@ function showMouseEndY(){
     document.getElementById("mouseEndY").innerHTML = mouseEndYConst + mouseEndY;
 }
 
-function getMouseVelocity(e_init, e) {
-    var x = e_init.clientX, new_x,new_y,new_t,
+function getMouseVelocity  (dragObj, previousDragObj){
+    var x = dragObj.clientX, new_x,new_y,new_t,
         x_dist, y_dist, interval,velocity,
-        y = e_init.clientY,
+        y = dragObj.clientY,
         t;
-    if (e === false) {return 0;}
-    t = e.time;
-    new_x = e.clientX;
-    new_y = e.clientY;
+    if (previousDragObj === false) {return 0;}
+    t = previousDragObj.time;
+    new_x = previousDragObj.clientX;
+    new_y = previousDragObj.clientY;
     new_t = Date.now();
     x_dist = new_x - x;
     y_dist = new_y - y;
     interval = new_t - t;
-    // update values:
-    x = new_x;
-    y = new_y;
     velocity = Math.sqrt(x_dist*x_dist+y_dist*y_dist)/interval;
     return velocity;
-}
+};
 
 function getElementDrill(){
     drill = document.getElementById("drill");
@@ -285,19 +282,19 @@ function getElementDrill(){
     drill.onmousedown = function(e){
         mouseStartX = e.x;
         mouseStartY = e.y;
-        self.showMouseStartX();
-        self.showMouseStartY();
-        var previousEvent = false;
+        showMouseStartX();
+        showMouseStartY();
+        var previousDragObj = false;
         document.onmousemove = function(e){
             e.time = Date.now();
             var velocity;
-            velocity = self.getMouseVelocity( e, previousEvent);
-            previousEvent = e;
+            velocity = getMouseVelocity( e, previousDragObj);
+            previousDragObj = e;
             document.getElementById("velocity").innerHTML="mouse velocity: "+velocity;
             mouseEndX = e.x;
             mouseEndY = e.y;
-            self.showMouseEndX();
-            self.showMouseEndY();
+            showMouseEndX();
+            showMouseEndY();
         }
         document.onmouseup = function(e){
             mouseEndX = e.x;
